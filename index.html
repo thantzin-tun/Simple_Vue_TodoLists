@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Simple CRUD</title>
+    <link
+      href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/mdb-vue-ui-kit/css/mdb.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="root">
+      <div class="container">
+        <div class="row d-flex justify-content-center align-items-center">
+          <div class="col-md-6 mt-3">
+            <div class="card shadow-md">
+              <div class="card-header">
+                <h3 class="text-dark my-2">Daily Your Activities</h3>
+                <div class="d-flex justify-content-between align-items-center">
+                  <h6 class="text-dark my-2" v-if="completeWork.length >0">
+                    Completed Work: {{completeWork.length}}
+                  </h6>
+                  <h6 class="text-dark my-2" v-if="myList.length > 0">
+                    Need to do Today: {{myList.length - completeWork.length}}
+                  </h6>
+                </div>
+                <form action="" @submit.prevent="insertData()">
+                  <div class="input-group my-2">
+                    <span
+                      class="input-group-text bg-dark"
+                      id="basic-addon1"
+                      @click="insertData()"
+                    >
+                      <i class="fas fa-plus-circle text-light"></i>
+                    </span>
+                    <input
+                      type="text"
+                      v-model="activity"
+                      class="form-control"
+                      placeholder="Username"
+                      aria-label="Username"
+                      aria-describedby="basic-addon1"
+                    />
+                  </div>
+                </form>
+              </div>
+              <div class="card-body">
+                <ul class="list-group list-group-small">
+                  <li
+                    class="list-group-item bg-light text-dark shadow-md p-2 fw-bold d-flex justify-content-between align-items-center mb-2"
+                    v-for="(active,index) in myList"
+                  >
+                    <div>
+                      <input
+                        class="form-check-input me-4"
+                        type="checkbox"
+                        v-model="active.completed"
+                      />
+                      <span v-bind:class="active.completed ? 'line' : ''"
+                        >{{active.text}}</span
+                      >
+                    </div>
+                    <button
+                      class="btn btn-danger btn-sm"
+                      @click="deleteData(active)"
+                      v-if="active.completed"
+                    >
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.10/dist/vue.js"></script>
+  <script type="text/javascript" src="app.js"></script>
+</html>
